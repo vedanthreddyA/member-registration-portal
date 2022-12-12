@@ -1,0 +1,47 @@
+<table class="table table-hover shadow-sm p-3 mb-5 bg-body rounded">
+    <thead>
+      <tr>
+        <th scope="col">Dependent Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dependent of dependentList">
+        <td>{{dependent.id}}</td>
+        <td>{{dependent.name}}</td>
+        <td>{{dependent.dob | date:'fullDate'}}</td>
+        <td>
+           <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editEmployee"
+            (click)="editDependent(dependent.id)">Edit</button>
+          <button type="button" class="btn btn-outline-danger me-2" (click)="deleteDependent(dependent.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Edit Member Modal -->
+   <div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Dependent</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <div class="container">
+            <h3 style="text-align: center;">Dependent Details</h3>
+            <div class="mb-3">
+              <label for="inputContact" class="form-label">Date of Birth</label>
+              <input type="text" [(ngModel)]="savedependent.dob" class="form-control" id="inputContact">
+            </div>
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-outline-success"
+             (click)="updateDependent(savedependent,savedependent.id)">Update</button>
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 

@@ -1,0 +1,109 @@
+<table class="table table-hover shadow-sm p-3 mb-5 bg-body rounded">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email Id</th>
+            <th scope="col">Pan Number</th>
+            <th scope="col">Contact Number</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let member of memberList">
+            <td>{{member.name}}</td>
+            <td>{{member.emailAddress}}</td>
+            <td>{{member.panNumber}}</td>
+            <td>{{member.contactNumber}}</td>
+            <td>{{member.address}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#editEmployee" (click)="editMember(member.id)">Edit</button>
+                <button type="button" class="btn btn-outline-secondary me-2" (click)="addDependent(member.memberId)">Add
+                    Dependents</button>
+                <button type="button" class="btn btn-outline-info me-2" (click)="showDependent(member.memberId)">Show
+                    Dependents</button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Edit Member Modal -->
+<div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Member</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #registerForm="ngForm">
+                    <div class="container">
+                        <h3 style="text-align: center;">Member Details</h3>
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">Name</label>
+                            <input type="text" [(ngModel)]="member.name" class="form-control" id="name" name="name"
+                                #name="ngModel" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Id</label>
+                            <input type="email" [(ngModel)]="member.emailAddress" class="form-control" id="email"
+                                name="email" #email="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                required>
+                            <div *ngIf="(email.touched || registerForm.submitted) && email.errors?.['required']"
+                                style="color:rgb(214, 16, 16)">Email is Required</div>
+                            <div *ngIf="(email.touched || registerForm.submitted) && email.errors?.['pattern']"
+                                style="color:rgb(226, 13, 13)">Enter a valid Email</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pannumber" class="form-label">Pan Number</label>
+                            <input type="text" [(ngModel)]="member.panNumber" class="form-control" id="pannumber"
+                                name="pannumber" #pannumber="ngModel" minlength="12" maxlength="12" required
+                                [pattern]="'^[a-zA-Z0-9]+$'">
+                            <div *ngIf="(pannumber.touched || registerForm.submitted) && pannumber.errors?.['required']"
+                                style="color:rgb(235, 16, 16)">*Pan number is Required</div>
+                            <div *ngIf="(pannumber.touched || registerForm.submitted) && pannumber.errors?.['minlength']"
+                                style="color:rgb(230, 11, 11)">*Pan Number should be 12 characters</div>
+                            <div *ngIf="(pannumber.touched || registerForm.submitted) && pannumber.errors?.['pattern']"
+                                style="color:rgb(230, 11, 11)">Special character and space are not allowed</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" [(ngModel)]="member.state" class="form-control" id="state" name="state"
+                                #state="ngModel" [pattern]="'^[a-zA-Z ]*$'" required>
+                            <div *ngIf="(state.touched || registerForm.submitted) && state.errors?.['required']"
+                                style="color:rgb(233, 14, 14)">*State is Required</div>
+                            <div *ngIf="(state.touched || registerForm.submitted) && state.errors?.['pattern']"
+                                style="color:rgb(233, 18, 18)">*please enter only characters</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" [(ngModel)]="member.address" class="form-control" id="address"
+                                name="address" #address="ngModel" [pattern]="'^[a-zA-Z ]*$'" required>
+                                <div *ngIf="(address.touched || registerForm.submitted) && address.errors?.['required']"
+                                style="color:rgb(233, 14, 14)">*Addres is Required</div>
+                            <div *ngIf="(address.touched || registerForm.submitted) && address.errors?.['pattern']"
+                                style="color:rgb(233, 18, 18)">*please enter only characters</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactNumber" class="form-label">Contact Number</label>
+                            <input type="text" [(ngModel)]="member.contactNumber" class="form-control"
+                                id="contactNumber" name="contactNumber" #contactNumber="ngModel" minlength="10"
+                                maxlength="10" required>
+                            <div *ngIf="(contactNumber.touched || registerForm.submitted) && contactNumber.errors?.['required']"
+                                style="color:rgb(219, 13, 13)">Contact Number is Required</div>
+                            <div *ngIf="(contactNumber.touched || registerForm.submitted) && contactNumber.errors?.['minlength']"
+                                style="color:rgb(226, 12, 12)">Contact Number should be of 10 digits</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success"
+                            (click)="updateMember(member,member.id)">Update</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<table class="table table-hover shadow-sm p-3 mb-5 bg-body rounded">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email Id</th>
+            <th scope="col">Pan Number</th>
+            <th scope="col">Contact Number</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let member of memberList">
+            <td>{{member.name}}</td>
+            <td>{{member.emailAddress}}</td>
+            <td>{{member.panNumber}}</td>
+            <td>{{member.contactNumber}}</td>
+            <td>{{member.address}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#memberClaim" (click)="applyforClaim(member.id)">Claim</button>
+                <button type="button" class="btn btn-outline-secondary me-2"
+                    (click)="dependentClaim(member.memberId)">Dependent Claim</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Apply for cliam Modal -->
+<div class="modal fade" id="memberClaim" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Please Provide Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="createClaim(claim)" #registerForm="ngForm">
+                    <div class="container-2">
+                        <div class="mb-3">
+                            <input type="text" [disabled]="isDisabled" class="form-control" id="name" name="name"
+                                placeholder="Enter Member Name" [(ngModel)]="claim.memberName" #name="ngModel"
+                                maxlength="15" required [pattern]="'^[a-zA-Z ]*$'">
+                            <div *ngIf="(name.touched || registerForm.submitted) && name.errors?.['required']"
+                                style="color:rgb(233, 14, 14)">*Name is Required</div>
+                            <div *ngIf="(name.touched || registerForm.submitted) && name.errors?.['maxlength']"
+                                style="color:rgb(233, 18, 18)">*Name should not be more than 15 characters</div>
+                            <div *ngIf="(name.touched || registerForm.submitted) && name.errors?.['pattern']"
+                                style="color:rgb(233, 18, 18)">*please enter only characters</div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Enter Date Of Admission</label>
+                            <input type="date" class="form-control" id="dob" name="dob"
+                                placeholder="Enter Date Of Admission" [(ngModel)]="claim.dateOfAdmission" #dob="ngModel"
+                                [max]="getToday()" required>
+                            <div *ngIf="(dob.touched || registerForm.submitted) && dob.errors?.['required']"
+                                style="color:rgb(212, 12, 22)">Date of admission is Required</div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Enter Date of Discharge</label>
+                            <input type="date" class="form-control" id="dod" name="dod"
+                                placeholder="Enter Date Of Discharge" [(ngModel)]="claim.dateOfDischarge" #dod="ngModel"
+                                [max]="getToday()" required>
+                            <div *ngIf="(dod.touched || registerForm.submitted) && dod.errors?.['required']"
+                                style="color:rgb(231, 18, 28)">Date of discharge is Required</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputDate" class="form-label">Date Of Birth</label>
+                            <input type="text" [disabled]="isDisabled"  [ngModel]="claim.dob | date: 'dd/MM/yyyy'" (ngModelChange)="claim.dob = $event" value="yyyy-month-date"
+                                class="form-control" id="inputDate" name="dateofbirth">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="provider" name="provider"
+                                placeholder="Enter provider Name" [(ngModel)]="claim.providerName" #provider="ngModel"
+                                required>
+                            <div *ngIf="(provider.touched || registerForm.submitted) && provider.errors?.['required']"
+                                style="color:rgb(223, 19, 19)">Provider name is Required</div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Enter Amount</label>
+                            <input type="number" class="form-control" id="totalbill" name="totalbill"
+                                placeholder="Enter total bill " [(ngModel)]="claim.totalBillAmount" minlength="8"
+                                #totalbill="ngModel" required>
+                            <div *ngIf="(totalbill.touched || registerForm.submitted) && totalbill.errors?.['required']"
+                                style="color:rgb(221, 11, 29)">Amount is Required</div>
+                        </div>
+                        <div class="makecenter ">
+                            <button type="submit" [disabled]="!registerForm.valid" class="btn btn-success me-2">Submit</button>
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="row justify-content-center">
+    <div class="card " style="width: 30rem; background-color: rgb(232, 241, 241);">
+        <div class="card-body">
+            <h3 class="card-title text-center">Cliam</h3>
+            <form (ngSubmit)="createClaim(claim)" #registerForm="ngForm">
+                <div class="container-2">
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Member Name"
+                            [(ngModel)]="claim.memberName" #name="ngModel" maxlength="15" required [pattern]="'^[a-zA-Z ]*$'">
+                        <div *ngIf="(name.touched || registerForm.submitted) && name.errors?.['required']"
+                            style="color:rgb(233, 14, 14)">*Name is Required</div>
+                        <div *ngIf="(name.touched || registerForm.submitted) && name.errors?.['maxlength']"
+                            style="color:rgb(233, 18, 18)">*Name should not be more than 15 characters</div>
+                            <div *ngIf="(name.touched || registerForm.submitted) && name.errors?.['pattern']"
+                            style="color:rgb(233, 18, 18)">*please enter only characters</div>
+
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter Date Of Admission"
+                            [(ngModel)]="claim.dateOfAdmission" #dob="ngModel" required>
+                        <div *ngIf="(dob.touched || registerForm.submitted) && dob.errors?.['required']"
+                            style="color:rgb(17, 178, 103)">Date of admission is Required</div>
+                    </div>
+
+                   
+
+                    <div class="mb-3">
+                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter Date Of Discharge"
+                            [(ngModel)]="claim.dateOfDischarge" #dob="ngModel" required>
+                        <div *ngIf="(dob.touched || registerForm.submitted) && dob.errors?.['required']"
+                            style="color:rgb(17, 178, 103)">Date of discharge is Required</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Enter provider Name"
+                            [(ngModel)]="claim.providerName" #address="ngModel" required>
+                        <div *ngIf="(address.touched || registerForm.submitted) && address.errors?.['required']"
+                            style="color:rgb(17, 178, 103)">Provider name is Required</div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control" id="totalbill" name="totalbill"
+                            placeholder="Enter total bill " [(ngModel)]="claim.totalBillAmount" minlength="8"
+                            #totalbill="ngModel" required>
+                        <div *ngIf="(totalbill.touched || registerForm.submitted) && totalbill.errors?.['required']"
+                            style="color:rgb(17, 178, 103)">Amount is Required</div>
+                        
+                    </div>
+                   
+                    
+                    <div class="makecenter">
+                        <button type="submit" class="btn btn-success" >Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<!-- [disabled]="!registerForm.valid" -->

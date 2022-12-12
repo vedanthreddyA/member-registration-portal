@@ -1,0 +1,75 @@
+<div class="container-flued">
+    <nav class="navbar navbar-expand-lg bg-danger shadow-sm">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <button routerLink="/welcomepage" class="btn btn-danger mx-2">Home</button>
+                    </li>
+                    <li class="nav-item">
+                        <button routerLink="/registration" class="btn btn-danger mx-2">Add Member</button>
+                    </li>
+                    <li class="nav-item">
+                        <button routerLink="/updatemember" class="btn btn-danger mx-2">Member Details</button>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <button routerLink="/updatedependents" class="btn btn-danger mx-2">All Dependents</button>
+                    </li> -->
+                    <li class="nav-item">
+                        <button routerLink="/claim" class="btn btn-danger mx-2">Member Claim</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Add member Modal -->
+    <div class="modal fade " id="addMemebr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <div class="container">
+                        <h5 style="text-align: center;">Member Detail</h5>
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Name</label>
+                            <input type="text" [(ngModel)]="member.name" class="form-control" id="inputName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">Email Id</label>
+                            <input type="email" [(ngModel)]="member.emailAddress" class="form-control" id="inputEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPanNumber" class="form-label">Pan Number</label>
+                            <input type="text" [(ngModel)]="member.panNumber" class="form-control" id="inputPanNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputNumber" class="form-label">Contact Number</label>
+                            <input type="number" [(ngModel)]="member.contactNumber" class="form-control"
+                                id="inputNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputDob" class="form-label">Date of Birth</label>
+                            <input type="date" [(ngModel)]="member.dob" value="yyyy-month-date" class="form-control"
+                                id="inputDob">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputAddress" class="form-label">Address</label>
+                            <input type="text" [(ngModel)]="member.address" class="form-control" id="inputAddress">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCountry" class="form-label">Country</label>
+                            <input type="text" [(ngModel)]="member.country" class="form-control" id="inputCountry">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputState" class="form-label">State</label>
+                            <input type="text" [(ngModel)]="member.state" class="form-control" id="inputState">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

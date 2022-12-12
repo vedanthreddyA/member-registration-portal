@@ -1,0 +1,44 @@
+
+  .registration{
+    background-color: whitesmoke;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+header{
+    background-color: #191970;
+    font-weight: bold;
+    height: auto;
+    width: auto;
+    text-align: center;
+}
+
+
+.container{
+    padding-top: 40px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    height: 60%;
+    width: 40%;
+    border:3px;
+    border-radius: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #405065;
+}
+.mb-3{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.container-2{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.makecenter{
+    display: flex;
+    justify-content: center;
+}
